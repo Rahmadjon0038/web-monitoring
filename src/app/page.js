@@ -4,7 +4,7 @@ import React from "react";
 function Home() {
   return (
     <div style={{
-            background: 'url(/userProfile.png)', backgroundSize: 'cover', backgroundPosition: 'center'
+            background: 'url(/userProfile.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center'
         }}  className="min-h-screen pt-12   text-gray-100 flex flex-col items-center justify-center px-6">
       <h1 className="text-4xl md:text-5xl font-extrabold text-white text-center mb-4">
         Web Dasturlash Kursi Platformasi

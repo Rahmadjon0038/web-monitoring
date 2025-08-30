@@ -26,7 +26,7 @@ function Page() {
   return (
     <div
       style={{
-        background: 'url(/userProfile.png)',
+        background: 'url(/userProfile.jpeg)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}

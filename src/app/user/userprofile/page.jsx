@@ -12,7 +12,7 @@ function Page() {
 
   return (
     <div style={{
-      background: 'url(/userProfile.png)', backgroundSize: 'cover', backgroundPosition: 'center'
+      background: 'url(/userProfile.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center'
     }} className="pt-20 px-6 text-white min-h-screen ">
       {/* Profil qismi */}
       <div className="bg-transparent backdrop-blur-3xl border-2 border-gray-400 p-6 rounded-xl shadow-md mb-8 mt-12">

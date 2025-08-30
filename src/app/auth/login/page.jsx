@@ -1,10 +1,14 @@
 'use client'
+import { useRole } from "@/context/userContext";
 import { uselogin } from "@/hooks/auth";
+import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 function Login() {
     // ------------------ Login mutate -------------
     const loginMutation = uselogin()
+    const navigate = useRouter();
+    const { role, setRole } = useRole();
 
     const [formData, setFormData] = useState({
         email: "",
@@ -22,7 +26,13 @@ function Login() {
     // submit bosilganda
     const handleSubmit = (e) => {
         e.preventDefault();
-        loginMutation.mutate(formData); 
+        loginMutation.mutate({
+            formData,
+            onSuccess: (data) => {
+                navigate.push('/user/userprofile')
+                setRole(data?.user?.role)
+            }
+        });
     };
 
     return (

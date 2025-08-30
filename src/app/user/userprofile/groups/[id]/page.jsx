@@ -17,7 +17,7 @@ function Page() {
 
     return (
         <div style={{
-            background: 'url(/userProfile.png)', backgroundSize: 'cover', backgroundPosition: 'center'
+            background: 'url(/userProfile.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center'
         }} className="pt-20 px-6 text-white min-h-screen">
             <h1 className="text-2xl font-bold mb-6 mt-12 text-center">📅 Guruh {id} — Oylik bo‘limlar</h1>
 

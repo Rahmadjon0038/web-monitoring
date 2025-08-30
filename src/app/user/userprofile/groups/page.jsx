@@ -20,7 +20,7 @@ function GroupsPage() {
 
     return (
         <div style={{
-            background: 'url(/userProfile.png)', backgroundSize: 'cover', backgroundPosition: 'center'
+            background: 'url(/userProfile.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center'
         }} className="pt-20 px-6 text-white min-h-screen bg-gray-900">
             <h1 className="text-3xl font-bold mb-12 text-center mt-12">Mening Guruhlarim</h1>
 

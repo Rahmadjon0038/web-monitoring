@@ -29,8 +29,13 @@ function Login() {
         loginMutation.mutate({
             formData,
             onSuccess: (data) => {
-                navigate.push('/user/userprofile')
-                setRole(data?.user?.role)
+                if (data?.role == 'user') {
+                    navigate.push('/user/userprofile')
+                }
+                else if (data?.role == 'admin') {
+                    navigate.push('/admin/profile')
+                }
+                setRole(data?.role)
             }
         });
     };

@@ -41,7 +41,7 @@ function GroupsPage() {
                                 Ishtirokchilar: {group.members} ta
                             </p>
 
-                            <Link href={`/userprofile/groups/${group?.id}`}>
+                            <Link href={`/user/userprofile/groups/${group?.id}`}>
                                 <button className="mt-4 bg-blue-600 hover:bg-blue-500  px-4 py-2 rounded-lg font-medium">
                                     Guruhga kirish
                                 </button></Link>

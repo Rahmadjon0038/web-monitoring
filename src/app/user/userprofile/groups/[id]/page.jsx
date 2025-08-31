@@ -23,7 +23,7 @@ function Page() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mt-12">
                 {months.map((month) => (
-                    <Link href={`/userprofile/groups/${id}/${month.id}`} key={month.id}>
+                    <Link href={`/user/userprofile/groups/${id}/${month.id}`} key={month.id}>
                         <div
                             className="relative bg-transparent backdrop-blur-3xl border-2 p-5 rounded-xl shadow-md  border-gray-400 cursor-pointer transition hover:border-white">
                             {/* Tepadagi status */}

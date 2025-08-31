@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Cookies from "js-cookie";
 import { useGetNotify } from "./notify";
 const notify = useGetNotify();
@@ -14,10 +14,10 @@ export const useRegister = () => {
         mutationFn: register,
         mutationKey: ['register'],
         onSuccess: (data) => {
-            console.log(data)
+            notify('ok',data?.message)
         },
         onError: (err) => {
-            console.log(err)
+            notify('err', err?.response?.data?.error)
         }
     })
     return registerMutation
@@ -37,7 +37,7 @@ export const uselogin = () => {
         onSuccess: (data, vars) => {
             notify('ok', data?.message)
             Cookies.set('token', data?.token)
-            Cookies.set('role', data?.user?.role)
+            Cookies.set('role', data?.role)
             vars.onSuccess(data)
 
         },
@@ -47,4 +47,18 @@ export const uselogin = () => {
         }
     })
     return loginMutation
+}
+
+// ----------------------- User me ----------------
+const userMe = async () => {
+    const response = await instance.get('/auth/me');
+    return response.data
+}
+
+export const useUserMe = () => {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['user'],
+        queryFn: userMe,
+    })
+    return { data, isLoading, error }
 }

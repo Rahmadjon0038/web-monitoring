@@ -4,8 +4,8 @@ import React from "react";
 function Home() {
   return (
     <div style={{
-            background: 'url(/userProfile.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center'
-        }}  className="min-h-screen pt-12   text-gray-100 flex flex-col items-center justify-center px-6">
+      background: 'url(/userProfile.jpeg)', backgroundSize: 'cover', backgroundPosition: 'center'
+    }} className="min-h-screen pt-12   text-gray-100 flex flex-col items-center justify-center px-6">
       <h1 className="text-4xl md:text-5xl font-extrabold text-white text-center mb-4">
         Web Dasturlash Kursi Platformasi
       </h1>
@@ -18,7 +18,7 @@ function Home() {
       </p>
 
       {/* Action Buttons */}
-      <div className="flex gap-4">
+      {/* <div className="flex gap-4">
         <Link href={'/auth/register'}>
           <button className="px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-500 transition text-white font-semibold shadow-lg">
             Ro‘yxatdan o‘tish
@@ -29,7 +29,7 @@ function Home() {
             Kirish
           </button>
         </Link>
-      </div>
+      </div> */}
 
       {/* Info Section */}
       <div className="mt-16 grid md:grid-cols-3 gap-6 max-w-5xl w-full">

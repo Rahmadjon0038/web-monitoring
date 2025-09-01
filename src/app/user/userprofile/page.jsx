@@ -1,4 +1,5 @@
 'use client'
+import Loader from "@/componets/loader/Loader";
 import PieChartWithCustomizedLabel from "@/componets/UserChart";
 import { useUserMe } from "@/hooks/auth";
 import Link from "next/link";
@@ -7,7 +8,7 @@ import React from "react";
 function Page() {
   const { data, isLoading, error } = useUserMe();
 
-  if (isLoading) return <p className="text-white text-xl">⏳ Yuklanmoqda...</p>;
+  if (isLoading) return <p className="text-white text-xl"><Loader/></p>;
   if (error) return <p className="text-red-400 text-xl">❌ Xatolik: {error.message}</p>;
 
   const user = data?.user;

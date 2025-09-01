@@ -29,12 +29,12 @@ function Login() {
         loginMutation.mutate({
             formData,
             onSuccess: (data) => {
-                if (data?.role == 'user') {
-                    navigate.push('/user/userprofile')
+                if (data?.role === 'user') {
+                    navigate.replace('/user/userprofile')
+                } else if (data?.role === 'admin') {
+                    navigate.replace('/admin/profile')
                 }
-                else if (data?.role == 'admin') {
-                    navigate.push('/admin/profile')
-                }
+
                 setRole(data?.role)
             }
         });
@@ -75,6 +75,7 @@ function Login() {
                 </form>
             </div>
         </div>
+
     );
 }
 

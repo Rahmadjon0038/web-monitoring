@@ -1,0 +1,10 @@
+        VIDEO UCHUN APILAR
+GET /api/lessons → barcha darslarni olish
+
+GET /api/lessons/:id → bitta darsni olish
+
+POST /api/lessons → yangi dars qo‘shish
+
+PUT /api/lessons/:id → mavjud darsni taxrirlash
+
+POST /api/lessons/:id/like → like bosish

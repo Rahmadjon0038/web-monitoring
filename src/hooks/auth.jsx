@@ -5,7 +5,7 @@ const notify = useGetNotify();
 const { instance } = require("./api")
 
 const register = async (registerdata) => {
-    const response = await instance.post('/auth/register', registerdata);
+    const response = await instance.post('/api/auth/register', registerdata);
     return response.data
 }
 
@@ -26,7 +26,7 @@ export const useRegister = () => {
 // ------------------ LOGIN -----------------
 
 const login = async ({ formData }) => {
-    const response = await instance.post('/auth/login', formData);
+    const response = await instance.post('/api/auth/login', formData);
     return response.data
 }
 
@@ -51,7 +51,7 @@ export const uselogin = () => {
 
 // ----------------------- User me ----------------
 const userMe = async () => {
-    const response = await instance.get('/auth/me');
+    const response = await instance.get('/api/auth/me');
     return response.data
 }
 

@@ -70,13 +70,15 @@ function Page() {
         </Link>
 
         {/* Video dars card */}
-        <div className="bg-transparent backdrop-blur-3xl border-2 border-gray-400 p-6 rounded-xl shadow-md cursor-pointer transition">
-          <h2 className="text-xl font-bold text-green-400">🎥 Video Darslar</h2>
-          <p className="text-gray-400 mt-2">
-            Siz uchun tayyorlangan dars videolarini shu yerda tomosha qilishingiz
-            mumkin.
-          </p>
-        </div>
+        <Link href={'/user/videos'}>
+          <div className="bg-transparent backdrop-blur-3xl border-2 border-gray-400 p-6 rounded-xl shadow-md cursor-pointer transition">
+            <h2 className="text-xl font-bold text-green-400">🎥 Video Darslar</h2>
+            <p className="text-gray-400 mt-2">
+              Siz uchun tayyorlangan dars videolarini shu yerda tomosha qilishingiz
+              mumkin.
+            </p>
+          </div>
+        </Link>
       </div>
     </div>
   );

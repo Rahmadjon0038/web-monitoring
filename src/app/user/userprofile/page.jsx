@@ -1,14 +1,22 @@
 'use client'
 import Loader from "@/componets/loader/Loader";
 import PieChartWithCustomizedLabel from "@/componets/UserChart";
-import { useUserMe } from "@/hooks/auth";
+import { useRole } from "@/context/userContext";
+import { useavatar, useUserMe } from "@/hooks/auth";
+import { Button } from "@mui/material";
+import Cookies from "js-cookie";
+import { ImagePlus } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 function Page() {
   const { data, isLoading, error } = useUserMe();
+  const avatarMutation = useavatar();
+  const { role, setRole } = useRole();
 
-  if (isLoading) return <p className="text-white text-xl"><Loader/></p>;
+  if (isLoading) return <p className="text-white text-xl"><Loader /></p>;
   if (error) return <p className="text-red-400 text-xl">❌ Xatolik: {error.message}</p>;
 
   const user = data?.user;
@@ -16,7 +24,23 @@ function Page() {
     month: "Avgust 2025",
     stars: 3 // 1, 2 yoki 3 yulduzcha
   };
+  const avatarChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const formData = new FormData();
+    formData.append("avatar", file);       // backend kutayotgan nom bilan
+    avatarMutation.mutate({ id: user?.id, formData });
+  };
+
+
+  const navigate = useRouter();
   const starsArray = Array.from({ length: lastMonthStars.stars });
+  const logout = () => {
+    Cookies.remove('token')
+    Cookies.remove('role')
+    navigate.push('/')
+    setRole(null)
+  }
 
   return (
     <div
@@ -28,15 +52,21 @@ function Page() {
       className="pt-20 px-6 text-white min-h-screen "
     >
       {/* Profil qismi */}
-      <div className="bg-transparent backdrop-blur-3xl border-2 border-gray-400 p-6 rounded-xl shadow-md mb-8 mt-12 flex flex-col items-center grid grid-cols-2">
+      <div className="bg-transparent backdrop-blur-3xl border-2 border-gray-400 p-6 rounded-xl shadow-md mb-8 mt-12  flex-col  grid grid-cols-2">
 
         {/* Avatar */}
         <div className="text-center">
-          <img
-            src={user?.avatar ? user.avatar : "https://img.freepik.com/free-vector/blue-circle-with-white-user_78370-4707.jpg?semt=ais_hybrid&w=740&q=80"}
-            alt="Avatar"
-            className="w-28 h-28 rounded-full border-4 mx-auto border-white shadow-lg object-cover"
-          />
+          <div className="inline-block relative overflow-hidden ">
+            <Image
+              src={user?.avatar ? user.avatar : "/profile.png"}
+              alt="Avatar"
+              className="w-28 h-28 rounded-full border-2  mx-auto border-white shadow-lg object-cover"
+              width={200}
+              height={200}
+            />
+            <input onChange={avatarChange} className="absolute bottom-0 z-50 opacity-0" type="file" />
+            <ImagePlus className="absolute z-0 bottom-0 right-0" size={24} color="#00e5ff" strokeWidth={2.75} />
+          </div>
 
           {/* User Info */}
           {/* <h1 className="text-2xl font-bold mt-4">👩‍🎓 Profil</h1> */}
@@ -49,6 +79,7 @@ function Page() {
                 <span key={idx} className="text-yellow-400 text-2xl mx-1">⭐</span>
               ))}
             </div>
+            <Button onClick={logout}>Chiqish</Button>
           </div>
         </div>
         <div className="">
@@ -60,7 +91,7 @@ function Page() {
       {/* Pastki 2 ta card */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Guruh card */}
-        <Link href={'/user/userprofile/groups'}>
+        <Link href={'/user/groups'}>
           <div className="bg-transparent backdrop-blur-3xl border-2 border-gray-400 p-6 rounded-xl shadow-md cursor-pointer transition">
             <h2 className="text-xl font-bold text-blue-400">📚 Mening Guruhim</h2>
             <p className="text-gray-400 mt-2">

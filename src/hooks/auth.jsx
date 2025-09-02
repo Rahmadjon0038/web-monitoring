@@ -14,7 +14,7 @@ export const useRegister = () => {
         mutationFn: register,
         mutationKey: ['register'],
         onSuccess: (data) => {
-            notify('ok',data?.message)
+            notify('ok', data?.message)
         },
         onError: (err) => {
             notify('err', err?.response?.data?.error)
@@ -59,6 +59,43 @@ export const useUserMe = () => {
     const { data, isLoading, error } = useQuery({
         queryKey: ['user'],
         queryFn: userMe,
+    })
+    return { data, isLoading, error }
+}
+// ------------------ AVATAR -----------------
+
+const avatar = async (data) => {
+    const { id, formData } = data
+    const response = await instance.post(`/api/uploads/${id}/avatar`, formData);
+    return response.data
+}
+
+export const useavatar = () => {
+    const avatarMutation = useMutation({
+        mutationFn: avatar,
+        mutationKey: ['user'],
+        onSuccess: (data) => {
+            console.log(data)
+            notify('ok', data?.message)
+        },
+        onError: (err) => {
+            console.log(err)
+            notify('err', err?.response?.data?.error)
+        }
+    })
+    return avatarMutation
+}
+
+// ----------------------- Get all users ----------------
+const getAllusers = async () => {
+    const response = await instance.get('/api/auth/users');
+    return response.data
+}
+
+export const usegetAllusers = () => {
+    const { data, isLoading, error } = useQuery({
+        queryKey: ['user'],
+        queryFn: getAllusers,
     })
     return { data, isLoading, error }
 }

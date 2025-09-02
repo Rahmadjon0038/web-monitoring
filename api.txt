@@ -8,3 +8,7 @@ POST /api/lessons → yangi dars qo‘shish
 PUT /api/lessons/:id → mavjud darsni taxrirlash
 
 POST /api/lessons/:id/like → like bosish
+
+
+
+-------------- Avatar yuklash ---------------

@@ -1,22 +1,16 @@
+'use client'
+import EmptyState from "@/componets/EmptyState";
+import Loader from "@/componets/loader/Loader";
+import { usemyGroups } from "@/hooks/groups";
 import Link from "next/link";
 import React from "react";
 
 function GroupsPage() {
-    // Student qo'shilgan guruhlar (array)
-    const groups = [
-        {
-            id: 1,
-            name: "Frontend Guruh",
-            teacher: "Hojiakbar Murodillayev",
-            members: 23,
-        },
-        {
-            id: 2,
-            name: "Backend Guruh",
-            teacher: "Rahmadjon",
-            members: 17,
-        },
-    ];
+    const { data, isLoading, error } = usemyGroups();
+    const groups = data?.groups
+
+    if (isLoading) return <Loader />
+    if (error) return <EmptyState message={"Videolar hozircha mavjud emas"} />
 
     return (
         <div style={{
@@ -28,20 +22,22 @@ function GroupsPage() {
                 <p className="text-gray-400">Hali hech qaysi guruhga qo‘shilmagansiz.</p>
             ) : (
                 <div className="grid md:grid-cols-2 gap-6">
-                    {groups.map((group) => (
+                    {groups?.map((group) => (
                         <div
-                            key={group.id}
-                            className="bg-transparent backdrop-blur-3xl border-2 border-gray-400 p-5 rounded-2xl shadow-lg  transition"
-                        >
-                            <h2 className="text-xl font-semibold mb-2">{group.name}</h2>
+                            key={group?.id}
+                            className="bg-transparent backdrop-blur-3xl border-2 border-gray-400 p-5 rounded-2xl shadow-lg  transition">
+                            <h2 className="text-xl font-semibold mb-2">{group?.name}</h2>
                             <p className="text-gray-400 mb-1 text-xl">
-                                O‘qituvchi: {group.teacher}
+                                O‘qituvchi: {group?.teacher}
                             </p>
                             <p className="text-xl text-gray-400 mb-1">
-                                Ishtirokchilar: {group.members} ta
+                                Ishtirokchilar: {group?.students} ta
+                            </p>
+                            <p className="text-xl text-gray-400 mb-1">
+                                Yaratilgan: {group?.createdAt}
                             </p>
 
-                            <Link href={`/user/userprofile/groups/${group?.id}`}>
+                            <Link href={`/user/groups/${group?.id}`}>
                                 <button className="mt-4 bg-blue-600 hover:bg-blue-500  px-4 py-2 rounded-lg font-medium">
                                     Guruhga kirish
                                 </button></Link>

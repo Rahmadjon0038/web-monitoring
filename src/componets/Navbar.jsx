@@ -12,6 +12,7 @@ function Navbar() {
   }
 
   const { role } = useRole()
+  const token = Cookies.get('token')
 
   return (
     <nav className=" flex fixed max-w-[1920px] w-full justify-between items-center px-6 py-4 bg-transparent backdrop-blur-xs border-b border-[#334155] shadow-md">
@@ -19,8 +20,8 @@ function Navbar() {
         CodeNest
       </h1>
 
-      {role ?
-        <Link href={role == 'user' ? '/user/userprofile' : role == 'admin' ? '/admin/profile' : '/'}><h1 className='text-white text-xl'>Profile</h1></Link>
+      {role && token ?
+        <Link href={role == 'user' && token ? '/user/userprofile' : role == 'admin' && token ? '/admin/profile' : '/'}><h1 className='text-white text-xl'>Profile</h1></Link>
         :
         <div className="space-x-4">
           <Link href={'/auth/login'}

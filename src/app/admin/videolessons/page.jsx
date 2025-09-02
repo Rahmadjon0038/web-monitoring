@@ -67,7 +67,7 @@ function page() {
         <div className="min-h-screen px-6 pt-30 pb-10 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
             {/* Header */}
             <div className="flex justify-between items-center mb-8">
-                <h1 className="text-3xl font-bold flex items-center gap-4"><MdOutlineOndemandVideo size={50} /> Video darslar</h1>
+                <h1 className="text-3xl font-bold flex items-center gap-4"><MdOutlineOndemandVideo size={40} /> Video darslar</h1>
                 <Videomodal>
                     <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg shadow-md  flex items-center gap-2">
                         <FaPlusCircle /> Yangi video qo‘shish

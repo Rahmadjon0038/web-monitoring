@@ -1,5 +1,6 @@
 'use client'
 
+import { useRole } from '@/context/userContext';
 import { useUserMe } from '@/hooks/auth';
 import Link from 'next/link';
 import React from 'react';
@@ -8,6 +9,8 @@ function AdminProfilePage() {
   // Mock data (keyin API bilan almashtirish mumkin)
   const { data, isLoading, error } = useUserMe();
   const admin = data?.user
+  const { username, setUsername } = useRole();
+  setUsername(admin?.name)
   // const admin = {
   //   name: "Rahmadjon",
   //   email: "admin@example.com",
@@ -27,10 +30,9 @@ function AdminProfilePage() {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
       }}
-      className="min-h-screen pt-30 px-6 text-white"
-    >
+      className="min-h-screen pt-30 px-24 text-white">
       {/* Profil Card */}
-      <div className="mx-auto bg-transparent backdrop-blur-3xl border-2 border-gray-400 rounded-2xl shadow-xl p-8 flex flex-col md:flex-row gap-12 items-center gap-">
+      <div className="mx-auto bg-transparent backdrop-blur-3xl border border-gray-400 rounded-2xl shadow-xl p-8 flex flex-col md:flex-row gap-12 items-center gap-">
         {/* Avatar */}
         <div className="flex-shrink-0 text-center">
           <img
@@ -60,7 +62,7 @@ function AdminProfilePage() {
       </div>
 
       {/* Quick Links */}
-      <div className="max-w-4xl mx-auto mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className=" mx-auto mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
         <Link href={'/admin/groups'}>
           <div className="bg-blue-600 hover:bg-blue-500 transition p-6 rounded-xl shadow-lg text-center cursor-pointer">
             <h2 className="text-xl font-bold mb-2">📚 Guruhlar</h2>

@@ -2,12 +2,17 @@
 import EmptyState from "@/componets/EmptyState";
 import Loader from "@/componets/loader/Loader";
 import { usemyGroups } from "@/hooks/groups";
+import Cookies from "js-cookie";
 import Link from "next/link";
 import React from "react";
 
 function GroupsPage() {
     const { data, isLoading, error } = usemyGroups();
     const groups = data?.groups
+
+    const setGroupname = (groupname) => {
+        localStorage.setItem('groupname', groupname)
+    }
 
     if (isLoading) return <Loader />
     if (error) return <EmptyState message={"Videolar hozircha mavjud emas"} />
@@ -27,6 +32,7 @@ function GroupsPage() {
                             key={group?.id}
                             className="bg-transparent backdrop-blur-3xl border-2 border-gray-400 p-5 rounded-2xl shadow-lg  transition">
                             <h2 className="text-xl font-semibold mb-2">{group?.name}</h2>
+
                             <p className="text-gray-400 mb-1 text-xl">
                                 O‘qituvchi: {group?.teacher}
                             </p>
@@ -38,9 +44,13 @@ function GroupsPage() {
                             </p>
 
                             <Link href={`/user/groups/${group?.id}`}>
-                                <button className="mt-4 bg-blue-600 hover:bg-blue-500  px-4 py-2 rounded-lg font-medium">
+                                <button
+                                    onClick={() => localStorage.setItem("groupname", group?.name)}
+                                    className="mt-4 bg-blue-600 hover:bg-blue-500 px-4 py-2 rounded-lg font-medium"
+                                >
                                     Guruhga kirish
-                                </button></Link>
+                                </button>
+                            </Link>
                         </div>
                     ))}
                 </div>

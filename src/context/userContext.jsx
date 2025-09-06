@@ -8,6 +8,7 @@ const RoleContext = createContext();
 export const RoleProvider = ({ children }) => {
   const [role, setRole] = useState(null);
   const [username, setUsername] = useState(null);
+  const [monthName, setMonthName] = useState(null);
 
   useEffect(() => {
     // Cookiesdan 'role'ni olish (agar mavjud bo‘lsa)
@@ -21,7 +22,7 @@ export const RoleProvider = ({ children }) => {
 
   // Context qiymatini taqdim etish
   return (
-    <RoleContext.Provider value={{ role, setRole, username, setUsername }}>
+    <RoleContext.Provider value={{ role, setRole, username, setUsername, monthName, setMonthName }}>
       {children}
     </RoleContext.Provider>
   );

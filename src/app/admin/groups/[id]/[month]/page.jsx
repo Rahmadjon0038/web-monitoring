@@ -3,14 +3,16 @@ import { useParams } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import { Save, Check, Minus, Plus } from 'lucide-react';
 import { usegetMonthStudents, usescoreMonthStudents } from '@/hooks/month';
-import axios from 'axios';
 import Loader from '@/componets/loader/Loader';
+import { useRole } from '@/context/userContext';
 
 function Page() {
     const { id, month } = useParams();
     const { data, isLoading, error } = usegetMonthStudents(month);
     //  score student add
     const scoreMonthStudentsMutation = usescoreMonthStudents()
+    const { monthName, setMonthName } = useRole();
+
 
     const [students, setStudents] = useState([]);
     const [savingId, setSavingId] = useState(null);

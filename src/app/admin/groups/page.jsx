@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { Plus, Users, Edit, Trash2, Eye, UserPlus } from 'lucide-react';
-import { usegetGroups } from '@/hooks/groups';
+import { usedeleteGroup, usegetGroups } from '@/hooks/groups';
 import GroupModal from '@/componets/modal/GroupModal';
 import Loader from '@/componets/loader/Loader';
 import AddGroupModal from '@/componets/modal/AddGroupModal';
@@ -11,6 +11,15 @@ import Link from 'next/link';
 function page() {
   const { data, isLoading, error } = usegetGroups()
   const groups = data?.groups
+
+  // ------------ delete group muatate -------------
+  const deleteGroupMutation = usedeleteGroup();
+
+
+  const deleteGroup = (id) => {
+    deleteGroupMutation.mutate(id)
+  }
+
 
   if (isLoading) return <Loader />
   if (error) return 'maluomt mavjud emas'
@@ -64,9 +73,10 @@ function page() {
               <button className="flex items-center gap-1 text-green-400 hover:text-green-300 transition">
                 <Edit size={18} /> Tahrirlash
               </button>
-              <button className="flex items-center gap-1 text-red-400 hover:text-red-300 transition">
+              <button onClick={() => deleteGroup(group?.id)} className="flex items-center gap-1 text-red-400 hover:text-red-300 transition">
                 <Trash2 size={18} /> O‘chirish
               </button>
+
             </div>
 
             {/* Add Student */}

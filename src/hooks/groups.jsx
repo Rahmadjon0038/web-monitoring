@@ -91,3 +91,26 @@ export const usegetGroupMembers = (id) => {
     })
     return { data, isLoading, error }
 }
+
+
+// -------------------- DELETE GROUP -----------------
+const deleteGroup = async (id) => {
+    const response = await instance.delete(`/api/groups/${id}`);
+    return response.data
+}
+
+export const usedeleteGroup = () => {
+    const quericlient = useQueryClient()
+    const deleteGroupMutation = useMutation({
+        mutationFn: deleteGroup,
+        mutationKey: ['groups'],
+        onSuccess: (data) => {
+            notify('ok', data?.message || "Gurux o'chirildi")
+            quericlient.invalidateQueries(['groups'])
+        },
+        onError: (err) => {
+            notify('err', err?.response?.data?.error || "guruxni o'chirishda xatolik")
+        }
+    })
+    return deleteGroupMutation
+}

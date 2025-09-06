@@ -60,6 +60,7 @@ function page() {
         likeVideoMutation.mutate(id)
     }
 
+
     if (isLoading) return <Loader />
     if (error) return "qandeydur xatolik"
 
@@ -104,9 +105,11 @@ function page() {
                                 {/* Actions */}
                                 <div className="flex justify-between items-center">
                                     <div className="flex gap-3">
-                                        <button className="text-green-400 hover:text-green-300 flex items-center gap-1">
-                                            <Edit size={18} /> Tahrirlash
-                                        </button>
+                                        <Videomodal editVideo={video} edit={true}>
+                                            <button className="text-green-400 hover:text-green-300 flex items-center gap-1">
+                                                <Edit size={18} /> Tahrirlash
+                                            </button>
+                                        </Videomodal>
                                         <button onClick={() => handleDelete(video?.id)} className="text-red-400 hover:text-red-300 flex items-center gap-1">
                                             <Trash2 size={18} /> O‘chirish
                                         </button>

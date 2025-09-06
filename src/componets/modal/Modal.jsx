@@ -7,7 +7,7 @@ import Modal from "@mui/material/Modal";
 import TextField from "@mui/material/TextField";
 import Stack from "@mui/material/Stack";
 import { MdOutlineOndemandVideo } from "react-icons/md";
-import { usesetVideo } from "@/hooks/videoLessons";
+import { usesetVideo, useupdateVideo } from "@/hooks/videoLessons";
 
 const style = {
     position: "absolute",
@@ -25,14 +25,19 @@ const style = {
     p: 4,
 };
 
-export default function Videomodal({ children }) {
+export default function Videomodal({ editVideo, edit, children }) {
     const setVideoMutation = usesetVideo();
+
+    const updateVideoMutation = useupdateVideo();
+
+    const today = new Date().toISOString().split("T")[0];
+
     const [open, setOpen] = React.useState(false);
     const [form, setForm] = React.useState({
-        title: "",
-        description: "",
-        embed: "",
-        date: "",
+        title: editVideo?.title,
+        description: editVideo?.description,
+        embed: editVideo?.embed,
+        date: today,
     });
 
     const handleChange = (e) => {
@@ -47,12 +52,17 @@ export default function Videomodal({ children }) {
 
         const newData = { ...form, date: today };
 
-        console.log(newData);
         setVideoMutation.mutate(newData)
 
         setOpen(false);
         setForm({ title: "", description: "", embed: "" });
     };
+
+    const updateVideo = (videoid) => {
+        updateVideoMutation.mutate({ videoid, updatevideodata: form })
+    }
+
+
 
     return (
         <div>
@@ -64,8 +74,7 @@ export default function Videomodal({ children }) {
                         mb={2}
                         textAlign="center"
                         sx={{ fontWeight: "bold", letterSpacing: 1 }}
-                        className="flex items-center gap-2"
-                    >
+                        className="flex items-center gap-2">
                         <MdOutlineOndemandVideo size={26} /> Yangi dars qo‘shish
                     </Typography>
                     <form onSubmit={handleSubmit}>
@@ -126,21 +135,40 @@ export default function Videomodal({ children }) {
                                     },
                                 }}
                             />
+                            {edit ?
+                                <Button
+                                    onClick={() => updateVideo(editVideo?.id)}
+                                    type="button"
+                                    variant="contained"
+                                    sx={{
+                                        mt: 1,
+                                        bgcolor: "#1976d2",
+                                        borderRadius: "12px",
+                                        fontWeight: "bold",
+                                        textTransform: "none",
+                                        "&:hover": { bgcolor: "#1565c0" },
+                                    }}
+                                >
+                                    Yangilash
+                                </Button>
+                                :
 
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                sx={{
-                                    mt: 1,
-                                    bgcolor: "#1976d2",
-                                    borderRadius: "12px",
-                                    fontWeight: "bold",
-                                    textTransform: "none",
-                                    "&:hover": { bgcolor: "#1565c0" },
-                                }}
-                            >
-                                Qo‘shish
-                            </Button>
+                                <Button
+                                    type="submit"
+                                    variant="contained"
+                                    sx={{
+                                        mt: 1,
+                                        bgcolor: "#1976d2",
+                                        borderRadius: "12px",
+                                        fontWeight: "bold",
+                                        textTransform: "none",
+                                        "&:hover": { bgcolor: "#1565c0" },
+                                    }}
+                                >
+                                    Qo‘shish
+                                </Button>
+
+                            }
                         </Stack>
                     </form>
                 </Box>

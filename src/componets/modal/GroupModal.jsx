@@ -51,7 +51,6 @@ export default function GroupModal({ children }) {
             return;
         }
 
-        // Agar inputlar to‘g‘ri bo‘lsa, create qilamiz
         createGroupMutation.mutate(form);
         
     };

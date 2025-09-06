@@ -86,6 +86,7 @@ export const useavatar = () => {
     return avatarMutation
 }
 
+
 // ----------------------- Get all users ----------------
 const getAllusers = async () => {
     const response = await instance.get('/api/auth/users');
@@ -99,3 +100,5 @@ export const usegetAllusers = () => {
     })
     return { data, isLoading, error }
 }
+
+

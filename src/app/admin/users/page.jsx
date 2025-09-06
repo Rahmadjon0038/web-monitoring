@@ -1,6 +1,6 @@
 'use client'
 import React from 'react'
-import { Edit, Trash2 } from 'lucide-react'
+import { Edit, Trash2, Users } from 'lucide-react'
 import { usegetAllusers } from '@/hooks/auth';
 import Image from 'next/image';
 import Loader from '@/componets/loader/Loader';
@@ -15,7 +15,7 @@ function Page() {
   return (
     <div className="min-h-screen px-6 pt-30 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
       {/* Header */}
-      <h1 className="text-3xl font-bold mb-8">👥 Ro‘yxatdan o‘tgan foydalanuvchilar</h1>
+      <h1 className="text-3xl font-bold mb-8 flex items-center gap-4 "><Users size={33} strokeWidth={3} /> Ro‘yxatdan o‘tgan foydalanuvchilar</h1>
 
       {/* Table */}
       <div className="bg-transparent border border-gray-700 rounded-2xl overflow-hidden shadow-xl">
@@ -27,7 +27,6 @@ function Page() {
               <th className="px-4 py-3 text-left">Ism</th>
               <th className="px-4 py-3 text-left">Email</th>
               <th className="px-4 py-3 text-left">Role</th>
-              <th className="px-4 py-3 text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -47,14 +46,7 @@ function Page() {
                     {user?.role}
                   </span>
                 </td>
-                <td className="px-4 py-3 flex justify-center gap-3">
-                  <button className="text-green-400 hover:text-green-300 transition flex items-center gap-1">
-                    <Edit size={18} /> Tahrirlash
-                  </button>
-                  <button className="text-red-400 hover:text-red-300 transition flex items-center gap-1">
-                    <Trash2 size={18} /> O‘chirish
-                  </button>
-                </td>
+               
               </tr>
             ))}
           </tbody>

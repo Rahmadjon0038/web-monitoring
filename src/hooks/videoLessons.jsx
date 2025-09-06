@@ -6,7 +6,7 @@ const notify = useGetNotify();
 // ----------------- Get video ---------------
 const getVideo = async () => {
     const response = await instance.get('/api/video')
-    return response.data
+    return response.data    
 }
 
 export const useGetVideo = () => {
@@ -40,7 +40,7 @@ export const usesetVideo = () => {
     return setVideoMutation
 }
 
-// ----------------- Post video ---------------
+// ----------------- delete video ---------------
 const deleteVideo = async (id) => {
     const response = await instance.delete(`/api/video/${id}`);
     return response.data
@@ -63,6 +63,32 @@ export const usedeleteVideo = () => {
     return deleteVideoMutation
 }
 
+// ----------------- Update video ---------------
+
+const updateVideo = async (data) => {
+    const { videoid, updatevideodata } = data
+    const response = await instance.put(`/api/video/${videoid}`, updatevideodata);
+    return response.data
+}
+
+export const useupdateVideo = () => {
+    const quericlient = useQueryClient()
+    const updateVideoMutation = useMutation({
+        mutationFn: updateVideo,
+        mutationKey: ['video'],
+        onSuccess: (data) => {
+            notify('ok', "Video Yangilandi")
+            quericlient.invalidateQueries(['video'])
+
+        },
+        onError: (err) => {
+            notify('err', err?.response?.data?.error || "Xatolik yuz berdi")
+        }
+    })
+    return updateVideoMutation
+}
+
+
 // ----------------- Like video ---------------
 const likeVideo = async (id) => {
     const response = await instance.post(`/api/video/${id}/like`);
@@ -83,4 +109,6 @@ export const uselikeVideo = () => {
     })
     return likeVideoMutation
 }
+
+
 

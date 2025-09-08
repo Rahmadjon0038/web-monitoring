@@ -66,8 +66,7 @@ export default function GroupModal({ children }) {
                         mb={2}
                         textAlign="center"
                         sx={{ fontWeight: "bold", letterSpacing: 1 }}
-                        className="flex items-center gap-2"
-                    >
+                        className="flex items-center gap-2">
                         Yangi gurux yaratish
                     </Typography>
                     <form onSubmit={handleSubmit}>

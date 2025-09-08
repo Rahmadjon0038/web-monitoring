@@ -18,6 +18,9 @@ function Page() {
   }, [])
   
   // Rangni ballga qarab belgilash funksiyasi
+
+
+
   const getPointColor = (points) => {
     if (points >= 100) return 'text-green-400';
     if (points >= 50) return 'text-blue-400';

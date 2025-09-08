@@ -13,6 +13,21 @@ function Page() {
     const scoreMonthStudentsMutation = usescoreMonthStudents()
     const { monthName, setMonthName } = useRole();
 
+    const topstudent = () => {
+        if (!data || data.length === 0) return null; // agar data bo'sh bo'lsa
+
+        let topStudent = data[0]; // birinchi talabani eng baland deb olish
+
+        data.forEach((item) => {
+            if (item?.score > topStudent.score) {
+                topStudent = item; // obyektni o'zini almashtirish kerak
+            }
+        });
+        localStorage.setItem('toptudent', topStudent?.name)
+    };
+
+    topstudent();
+
 
     const [students, setStudents] = useState([]);
     const [savingId, setSavingId] = useState(null);

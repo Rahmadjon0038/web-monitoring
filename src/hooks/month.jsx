@@ -64,6 +64,32 @@ export const usedeleteMonth = () => {
 }
 
 
+// -------------- FINISHED  MONTH ------------------
+
+const finishedMonth = async ({ monthId, ...finishedata }) => {
+    const response = await instance.put(`/api/month/${monthId}`, finishedata);
+    return response.data
+}
+
+export const usefinishedMonth = () => {
+    const quericlient = useQueryClient()
+    const finishedMutation = useMutation({
+        mutationFn: finishedMonth,
+        mutationKey: ['month'],
+        onSuccess: (data) => {
+            notify('ok', "Oy mofaqqiyatli Yakunlandi va g'olib aniqlandi")
+            quericlient.invalidateQueries(['month'])
+        },
+        onError: (err) => {
+            console.log(err)
+            notify('err', 'Oyni yakunlashda Xatolik')
+        }
+    })
+    return finishedMutation
+}
+// --
+
+
 
 
 

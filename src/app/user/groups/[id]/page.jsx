@@ -2,7 +2,6 @@
 
 import Loader from '@/componets/loader/Loader'
 import { usegetMonth } from '@/hooks/month'
-import Cookies from 'js-cookie'
 import Link from 'next/link'
 import { useParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -20,6 +19,8 @@ function Page() {
         let resdata = localStorage.getItem('groupname')
         setGroupname(resdata)
     }, [])
+
+    console.log(months, 'student')
 
 
     if (isLoading) return <Loader />

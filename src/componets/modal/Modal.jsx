@@ -1,4 +1,4 @@
-'use clinet'
+'use client'
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
@@ -14,29 +14,29 @@ const style = {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 420,
-    bgcolor: "rgba(255, 255, 255, 0.05)", // yarim shaffof fon
+    width: "90%",            // kichik ekranlarda 90%
+    maxWidth: 420,           // katta ekranlarda 420px dan oshmaydi
+    bgcolor: "rgba(255, 255, 255, 0.05)",
     color: "#fff",
     borderRadius: "16px",
-    backdropFilter: "blur(15px) saturate(180%)", // blur va saturatsiya
-    WebkitBackdropFilter: "blur(15px) saturate(180%)", // safari support
-    boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.37)", // yumshoq soyali
+    backdropFilter: "blur(15px) saturate(180%)",
+    WebkitBackdropFilter: "blur(15px) saturate(180%)",
+    boxShadow: "0 8px 32px 0 rgba(0, 0, 0, 0.37)",
     border: "1px solid rgba(255, 255, 255, 0.18)",
-    p: 4,
+    p: { xs: 2, sm: 4 },     // padding ham responsive
 };
 
 export default function Videomodal({ editVideo, edit, children }) {
     const setVideoMutation = usesetVideo();
-
     const updateVideoMutation = useupdateVideo();
 
     const today = new Date().toISOString().split("T")[0];
 
     const [open, setOpen] = React.useState(false);
     const [form, setForm] = React.useState({
-        title: editVideo?.title,
-        description: editVideo?.description,
-        embed: editVideo?.embed,
+        title: editVideo?.title || "",
+        description: editVideo?.description || "",
+        embed: editVideo?.embed || "",
         date: today,
     });
 
@@ -44,25 +44,20 @@ export default function Videomodal({ editVideo, edit, children }) {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-
-        // Hozirgi sanani olish (YYYY-MM-DD formatida)
         const today = new Date().toISOString().split("T")[0];
-
         const newData = { ...form, date: today };
 
-        setVideoMutation.mutate(newData)
-
+        setVideoMutation.mutate(newData);
         setOpen(false);
         setForm({ title: "", description: "", embed: "" });
     };
 
     const updateVideo = (videoid) => {
-        updateVideoMutation.mutate({ videoid, updatevideodata: form })
-    }
-
-
+        updateVideoMutation.mutate({ videoid, updatevideodata: form });
+        setOpen(false);
+    };
 
     return (
         <div>
@@ -74,8 +69,10 @@ export default function Videomodal({ editVideo, edit, children }) {
                         mb={2}
                         textAlign="center"
                         sx={{ fontWeight: "bold", letterSpacing: 1 }}
-                        className="flex items-center gap-2">
-                        <MdOutlineOndemandVideo size={26} /> Yangi dars qo‘shish
+                        className="flex items-center gap-2"
+                    >
+                        <MdOutlineOndemandVideo size={26} />{" "}
+                        {edit ? "Videoni yangilash" : "Yangi dars qo‘shish"}
                     </Typography>
                     <form onSubmit={handleSubmit}>
                         <Stack spacing={2}>
@@ -85,9 +82,8 @@ export default function Videomodal({ editVideo, edit, children }) {
                                 variant="outlined"
                                 value={form.title}
                                 onChange={handleChange}
-                                InputProps={{
-                                    style: { color: "#fff" },
-                                }}
+                                fullWidth
+                                InputProps={{ style: { color: "#fff" } }}
                                 InputLabelProps={{ style: { color: "#bbb" } }}
                                 sx={{
                                     "& .MuiOutlinedInput-root": {
@@ -105,9 +101,8 @@ export default function Videomodal({ editVideo, edit, children }) {
                                 onChange={handleChange}
                                 multiline
                                 rows={3}
-                                InputProps={{
-                                    style: { color: "#fff" },
-                                }}
+                                fullWidth
+                                InputProps={{ style: { color: "#fff" } }}
                                 InputLabelProps={{ style: { color: "#bbb" } }}
                                 sx={{
                                     "& .MuiOutlinedInput-root": {
@@ -123,9 +118,8 @@ export default function Videomodal({ editVideo, edit, children }) {
                                 variant="outlined"
                                 value={form.embed}
                                 onChange={handleChange}
-                                InputProps={{
-                                    style: { color: "#fff" },
-                                }}
+                                fullWidth
+                                InputProps={{ style: { color: "#fff" } }}
                                 InputLabelProps={{ style: { color: "#bbb" } }}
                                 sx={{
                                     "& .MuiOutlinedInput-root": {
@@ -135,11 +129,12 @@ export default function Videomodal({ editVideo, edit, children }) {
                                     },
                                 }}
                             />
-                            {edit ?
+                            {edit ? (
                                 <Button
                                     onClick={() => updateVideo(editVideo?.id)}
                                     type="button"
                                     variant="contained"
+                                    fullWidth
                                     sx={{
                                         mt: 1,
                                         bgcolor: "#1976d2",
@@ -151,11 +146,11 @@ export default function Videomodal({ editVideo, edit, children }) {
                                 >
                                     Yangilash
                                 </Button>
-                                :
-
+                            ) : (
                                 <Button
                                     type="submit"
                                     variant="contained"
+                                    fullWidth
                                     sx={{
                                         mt: 1,
                                         bgcolor: "#1976d2",
@@ -167,8 +162,7 @@ export default function Videomodal({ editVideo, edit, children }) {
                                 >
                                     Qo‘shish
                                 </Button>
-
-                            }
+                            )}
                         </Stack>
                     </form>
                 </Box>

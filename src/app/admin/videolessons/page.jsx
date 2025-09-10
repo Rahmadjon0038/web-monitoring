@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import React from 'react'
 import { Edit, Trash2, ThumbsUp } from 'lucide-react'
 import { usedeleteVideo, useGetVideo, uselikeVideo } from '@/hooks/videoLessons';
 import EmptyState from '@/componets/EmptyState';
@@ -7,47 +7,13 @@ import Loader from '@/componets/loader/Loader';
 import { FaPlusCircle } from "react-icons/fa";
 import { MdOutlineOndemandVideo } from "react-icons/md";
 import Videomodal from '@/componets/modal/Modal';
-function page() {
+
+function Page() {
     // ------------ Get video hook ------------
     const { data, isLoading, error } = useGetVideo()
     const videos = data
     // --------------Delete video hook --------------
     const deleteVideo = usedeleteVideo()
-    // const [videos, setVideos] = useState([
-    //     // {
-    //     //     id: 1,
-    //     //     title: "Elman Antigeroy",
-    //     //     description: "Bu darsda mexanikaning asosiy tushunchalari bilan tanishasiz.",
-    //     //     embed: "https://www.youtube.com/embed/VnXovgiuYCw",
-    //     //     date: "2025-01-20",
-    //     //     likes: 12
-    //     // },
-    //     // {
-    //     //     id: 2,
-    //     //     title: "Jah Kahlib",
-    //     //     description: "Ushbu videoda Nyutonning uchta asosiy qonunini o‘rganasiz.",
-    //     //     embed: "https://www.youtube.com/embed/io-BG2YhXrA",
-    //     //     date: "2025-02-01",
-    //     //     likes: 8
-    //     // },
-    //     // {
-    //     //     id: 3,
-    //     //     title: "Alan dran",
-    //     //     description: "Ushbu videoda Nyutonning uchta asosiy qonunini o‘rganasiz.",
-    //     //     embed: "https://www.youtube.com/embed/fLUowJ1x3yc",
-    //     //     date: "2025-02-01",
-    //     //     likes: 8
-    //     // }, 
-    //     {
-    //         id: 4,
-    //         title: "Alan Walker - Play",
-    //         description: "Ushbu videoda Nyutonning uchta asosiy qonunini o‘rganasiz.",
-    //         embed: "https://www.youtube.com/embed/YQRHrco73g4",
-    //         date: "2025-02-01",
-    //         likes: 8
-    //     },
-    // ]);
-    // //   
 
     // Like bosilganda ishlaydi
     const handleDelete = (id) => {
@@ -60,30 +26,33 @@ function page() {
         likeVideoMutation.mutate(id)
     }
 
-
     if (isLoading) return <Loader />
-    if (error) return "qandeydur xatolik"
+    if (error) return "Qandaydur xatolik"
 
     return (
-        <div className="min-h-screen px-6 pt-30 pb-10 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
+        <div className="min-h-screen px-4 sm:px-6 pt-24 sm:pt-28 pb-10 bg-gradient-to-br from-gray-900 via-black to-gray-800 text-white">
             {/* Header */}
-            <div className="flex justify-between items-center mb-8">
-                <h1 className="text-3xl font-bold flex items-center gap-4"><MdOutlineOndemandVideo size={40} /> Video darslar</h1>
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                <h1 className="text-2xl sm:text-3xl font-bold flex items-center gap-3 sm:gap-4">
+                    <MdOutlineOndemandVideo size={3} className="sm:size-10" /> Video darslar
+                </h1>
                 <Videomodal>
-                    <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg shadow-md  flex items-center gap-2">
+                    <button className="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg shadow-md flex items-center gap-2 text-sm sm:text-base">
                         <FaPlusCircle /> Yangi video qo‘shish
                     </button>
                 </Videomodal>
             </div>
 
             {/* Videos Grid */}
-            {videos.length == 0 ? <EmptyState message={"Hozircha video darslar mavjud emas"} /> :
-
+            {videos.length === 0 ? (
+                <EmptyState message={"Hozircha video darslar mavjud emas"} />
+            ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {videos?.map(video => (
                         <div
                             key={video?.id}
-                            className="bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700">
+                            className="bg-gray-800 rounded-xl shadow-lg overflow-hidden border border-gray-700 flex flex-col"
+                        >
                             {/* Video */}
                             <div className="aspect-video">
                                 <iframe
@@ -97,37 +66,41 @@ function page() {
                             </div>
 
                             {/* Info */}
-                            <div className="p-4">
-                                <h2 className="text-lg font-semibold mb-1">{video?.title}</h2>
-                                <p className="text-sm text-gray-400 mb-3">📅 {video?.date}</p>
-                                <p className="text-sm text-gray-300 mb-4">{video?.description}</p>
+                            <div className="p-4 flex flex-col flex-grow">
+                                <h2 className="text-lg font-semibold mb-1 line-clamp-1">{video?.title}</h2>
+                                <p className="text-xs sm:text-sm text-gray-400 mb-2">📅 {video?.date}</p>
+                                <p className="text-sm text-gray-300 mb-4 line-clamp-2">{video?.description}</p>
 
                                 {/* Actions */}
-                                <div className="flex justify-between items-center">
+                                <div className="mt-auto flex justify-between items-center">
                                     <div className="flex gap-3">
                                         <Videomodal editVideo={video} edit={true}>
-                                            <button className="text-green-400 hover:text-green-300 flex items-center gap-1">
-                                                <Edit size={18} /> Tahrirlash
+                                            <button className="text-green-400 hover:text-green-300 flex items-center gap-1 text-sm">
+                                                <Edit size={16} /> Tahrirlash
                                             </button>
                                         </Videomodal>
-                                        <button onClick={() => handleDelete(video?.id)} className="text-red-400 hover:text-red-300 flex items-center gap-1">
-                                            <Trash2 size={18} /> O‘chirish
+                                        <button
+                                            onClick={() => handleDelete(video?.id)}
+                                            className="text-red-400 hover:text-red-300 flex items-center gap-1 text-sm"
+                                        >
+                                            <Trash2 size={16} /> O‘chirish
                                         </button>
                                     </div>
 
                                     <button
                                         onClick={() => handleLike(video?.id)}
-                                        className="flex items-center gap-1 text-blue-400 hover:text-blue-300">
-                                        <ThumbsUp size={18} /> {video?.likes}
+                                        className="flex items-center gap-1 text-blue-400 hover:text-blue-300 text-sm"
+                                    >
+                                        <ThumbsUp size={16} /> {video?.likes}
                                     </button>
                                 </div>
                             </div>
                         </div>
                     ))}
                 </div>
-            }
+            )}
         </div>
     )
 }
 
-export default page
+export default Page

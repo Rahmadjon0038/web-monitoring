@@ -20,7 +20,7 @@ export default function PieChartWithCustomizedLabel({ userId }) {
 
   if (!groups.length) {
     return (
-      <div className="flex items-center justify-center w-full h-[200px] border rounded-lg">
+      <div className="flex items-center justify-center w-full h-[200px]  rounded-lg">
         <p className="text-gray-500 text-sm">Hozircha statistikalar yo‘q</p>
       </div>
     );
@@ -40,8 +40,7 @@ export default function PieChartWithCustomizedLabel({ userId }) {
         return (
           <div
             key={g.group.id}
-            className="flex flex-col items-center p-4 border border-gray-400  rounded-xl shadow-sm"
-          >
+            className="flex flex-col items-center p-4  -gray-400  rounded-xl shadow-sm">
             {/* Guruh nomi */}
             <h3 className="text-lg font-semibold mb-2">
               {g.group.name} ({g.month.name})
@@ -49,7 +48,7 @@ export default function PieChartWithCustomizedLabel({ userId }) {
 
             {/* Agar ballar bo‘lmasa */}
             {!chartData.length || TOTAL === 0 ? (
-              <div className="flex items-center justify-center w-[200px] h-[200px] border border-gray-400 rounded-lg">
+              <div className="flex items-center justify-center w-[200px] h-[200px]  -gray-400 rounded-lg">
                 <p className="text-gray-500 text-sm">Hali ballar kiritilmagan</p>
               </div>
             ) : (

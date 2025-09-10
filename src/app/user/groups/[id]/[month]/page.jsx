@@ -10,7 +10,7 @@ function Page() {
   const { month } = useParams();
   const { data: students, isLoading, error } = usegetMonthStudents(month);
   const sortedStudents = students ? [...students].sort((a, b) => b.score - a.score) : [];
-
+  console.log(students)
   const [monthname, setMonhName] = useState('')
   useEffect(() => {
     let resdata = localStorage.getItem('monthname')
@@ -18,8 +18,6 @@ function Page() {
   }, [])
   
   // Rangni ballga qarab belgilash funksiyasi
-
-
 
   const getPointColor = (points) => {
     if (points >= 100) return 'text-green-400';

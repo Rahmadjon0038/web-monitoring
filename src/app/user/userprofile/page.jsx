@@ -24,6 +24,7 @@ function Page() {
     month: "Avgust 2025",
     stars: 3 // 1, 2 yoki 3 yulduzcha
   };
+
   const avatarChange = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -83,8 +84,8 @@ function Page() {
           </div>
         </div>
         <div className="">
-          <PieChartWithCustomizedLabel />
-          <p className="text-xl text-gray-300 text-center">Ballar bo'yicha statistika</p>
+          <PieChartWithCustomizedLabel userId={user?.id} />
+          <p className="text-xl mt-4 text-gray-300 text-center">Ballar bo'yicha statistika</p>
         </div>
       </div>
 

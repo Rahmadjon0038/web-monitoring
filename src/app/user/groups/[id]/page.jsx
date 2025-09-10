@@ -20,7 +20,6 @@ function Page() {
         setGroupname(resdata)
     }, [])
 
-    console.log(months, 'student')
 
 
     if (isLoading) return <Loader />

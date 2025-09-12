@@ -39,7 +39,7 @@ Talabalar platformaga **profile** orqali kiradi, o‘z guruhlarini ko‘rishlari
 - Express.js  
 
 **Database**:  
-- (MongoDB yoki boshqa DB ishlatilgan bo‘lsa shu yerda qo‘shasiz)  
+- Sqlite3 
 
 ---
 
